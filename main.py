@@ -1,4 +1,5 @@
 from data import MENU, resource
+from art import logo
 
 money = 0
 
@@ -25,8 +26,11 @@ def process_coins():
 def is_transaction_successful(money_received, cost_of_drink):
     """Return True when the payment is accepted, or False if money is insufficient."""
     if money_received >= cost_of_drink:
-        change = round(money_received - cost_of_drink, 2)
-        print(f"Here is ${change} in change.")
+        if money_received == cost_of_drink:
+            print("Thank you for your exact payment!")
+        else:
+            change = round(money_received - cost_of_drink, 2)
+            print(f"Here is ${change} in change.")
         global money
         money += cost_of_drink
         return True
@@ -48,6 +52,7 @@ is_machine_off = False
 
 while not is_machine_off:
     # Prompt user by asking what kind of coffee they want
+    print(logo)
     choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
 
     # Turn off the Coffee Machine by entering “ off ” to the prompt.
@@ -63,6 +68,7 @@ while not is_machine_off:
 
     elif choice in coffee:
         drink = MENU[choice]
+        print(f"The {choice} costs ${drink['cost']}")
         if is_resource_sufficient(drink["ingredients"]):
             payment = process_coins()
             if is_transaction_successful(payment, drink["cost"]):
