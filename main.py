@@ -68,4 +68,4 @@ while not is_machine_off:
             if is_transaction_successful(payment, drink["cost"]):
                 make_coffee(choice, drink["ingredients"])
     else:
-        print("Invalid Input")
+        print("Invalid Input. Please pick your coffee again.")
